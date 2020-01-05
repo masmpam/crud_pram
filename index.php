@@ -41,6 +41,7 @@ $data = mysqli_query($koneksi,"SELECT * FROM mahasiswa");
 									<td>
 										<form method="POST" action="delete.php">
 											<input type="hidden" name="id" value="<?= $row['id']; ?>">
+											<a class="btn btn-success" href="edit.php?id=<?= $row['id']; ?>">Edit</a>
 											<button type="submit" class="btn btn-danger">Hapus</button>
 										</form>
 									</td>
