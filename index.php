@@ -1,60 +1,49 @@
-<?php
-
-require 'config.php';
-
-$data = mysqli_query($koneksi,"SELECT * FROM mahasiswa");
-?>
-
-<!DOCTYPE html>
 <html>
 <head>
-	<title>Crud Mahasiswa</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<title>ANGGOTA OSIS</title>
+	
 </head>
 <body>
-	<div class="container">
-		<div class="row">
-			<div class="col">
-				<div class="card mt-5">
-					<div class="card-body">
-						<h2>Data Mahasiswa</h2>
-						<a href="tambah.php" class="btn btn-primary">Tambah</a>
-						<table class="table table-striped table-hover mt-2">
-							<thead>
-								<tr>
-									<td>NIM</td>
-									<td>Nama</td>
-									<td>Tempat Lahir</td>
-									<td>Tanggal Lahir</td>
-									<td></td>
-								</tr>
-							</thead>
-							<tbody>
-								<?php
-									while( $row = mysqli_fetch_array($data)){
-								?>
-								<tr>
-									<td><?= $row['nim']; ?></td>
-									<td><?= $row['nama']; ?></td>
-									<td><?= $row['tempat_lahir']; ?></td>
-									<td><?= $row['tanggal_lahir']; ?></td>
-									<td>
-										<form method="POST" action="delete.php">
-											<input type="hidden" name="id" value="<?= $row['id']; ?>">
-											<a class="btn btn-success" href="edit.php?id=<?= $row['id']; ?>">Edit</a>
-											<button type="submit" class="btn btn-danger">Hapus</button>
-										</form>
-									</td>
-								</tr>
-								<?php
-									}
-								?>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
+	<div class="judul">		
+		           <h1>ANGGOTA OSIS</h1>
+				   <h2>SMK N 1 BLORA</h2>
+		           <h3>Masa Bakti Tahun 2019/2020</h3>
 	</div>
 </body>
+
+<?php
+include_once("koneksi.php");
+
+$result = mysqli_query($mysqli, "SELECT * FROM wali ORDER BY nis asc");
+?>
+<html>
+<head>
+	<title>Homepage</title>
+</head>
+
+<body>
+<a href="tambah.php">Add New User</a><br/><br/>
+
+	<table border=1>
+	
+	<tr>
+		<th>NIS</th> <th>Nama Siswa</th> <th>Jabatan</th> <th>Jenis Kelamin</th> <th>Alamat</th> 
+		</tr>
+		<?php
+		while($wali = mysqli_fetch_array($result)) {
+			echo "<tr>";
+			echo "<td>".$wali['nis']."</td>";
+			echo "<td>".$wali['nama_siswa']."</td>";
+			echo "<td>".$wali['jabatan']."</td>";
+			echo "<td>".$wali['jenis_kelamin']."</td>";
+			echo "<td>".$wali['alamat']."</td>";
+			
+			echo "<td><a href='ubah.php?nis=$wali[nis]'>Ubah</a> |
+			<a href='hapus.php?nis=$wali[nis]'>Hapus</a></td></tr>";
+			}
+			?>
+	</table>
+</body>
 </html>
+	
+			
